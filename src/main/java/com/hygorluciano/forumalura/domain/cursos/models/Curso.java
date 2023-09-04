@@ -1,4 +1,4 @@
-package com.hygorluciano.forumalura.domain.cursos;
+package com.hygorluciano.forumalura.domain.cursos.models;
 
 import jakarta.persistence.*;
 import lombok.*;
