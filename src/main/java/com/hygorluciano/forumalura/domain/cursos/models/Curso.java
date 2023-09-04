@@ -1,5 +1,6 @@
 package com.hygorluciano.forumalura.domain.cursos.models;
 
+import com.hygorluciano.forumalura.domain.cursos.dto.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,4 +17,9 @@ public class Curso {
     private String id;
     private String nome;
     private String categoria;
+
+    public Curso(CursoPostDto cursoPostDto) {
+        this.nome = cursoPostDto.nome();
+        this.categoria = cursoPostDto.categoria();
+    }
 }

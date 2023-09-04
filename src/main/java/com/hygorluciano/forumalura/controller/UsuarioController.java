@@ -14,7 +14,7 @@ public class UsuarioController {
     
     @Autowired
     private UsuarioRepository usuarioRepository;
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity postUsuario(@RequestBody @Valid UsuarioPostDto usuarioPostDto){
         var newUsuario = new Usuario(usuarioPostDto);
         System.out.println(newUsuario);
