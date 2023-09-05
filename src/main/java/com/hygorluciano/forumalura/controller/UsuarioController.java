@@ -1,8 +1,8 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.usuarios.dto.*;
-import com.hygorluciano.forumalura.domain.usuarios.models.*;
-import com.hygorluciano.forumalura.domain.usuarios.repository.*;
+import com.hygorluciano.forumalura.domain.usuarios.Usuario;
+import com.hygorluciano.forumalura.domain.usuarios.UsuarioPostDto;
+import com.hygorluciano.forumalura.domain.usuarios.UsuarioRepository;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;

@@ -1,8 +1,8 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.cursos.dto.*;
-import com.hygorluciano.forumalura.domain.cursos.models.*;
-import com.hygorluciano.forumalura.domain.cursos.repository.*;
+import com.hygorluciano.forumalura.domain.cursos.Curso;
+import com.hygorluciano.forumalura.domain.cursos.CursoPostDto;
+import com.hygorluciano.forumalura.domain.cursos.CursoRepository;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;

@@ -1,6 +1,6 @@
-package com.hygorluciano.forumalura.domain.resposta.repository;
+package com.hygorluciano.forumalura.domain.resposta;
 
-import com.hygorluciano.forumalura.domain.resposta.models.*;
+import com.hygorluciano.forumalura.domain.resposta.Resposta;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
 

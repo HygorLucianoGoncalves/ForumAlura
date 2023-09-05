@@ -1,22 +1,25 @@
-package com.hygorluciano.forumalura.domain.usuarios.models;
+package com.hygorluciano.forumalura.domain.usuarios;
 
-import com.hygorluciano.forumalura.domain.usuarios.dto.*;
+
+import com.hygorluciano.forumalura.domain.usuarios.UsuarioPostDto;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+@Entity
 @Table(name = "usuario")
-@Entity(name = "usuario")
 public class Usuario {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
     private String nome;
+
     private String email;
+
     private String senha;
 
     public Usuario(UsuarioPostDto usuarioPostDto) {

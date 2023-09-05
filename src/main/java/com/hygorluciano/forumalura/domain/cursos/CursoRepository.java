@@ -1,6 +1,6 @@
-package com.hygorluciano.forumalura.domain.cursos.repository;
+package com.hygorluciano.forumalura.domain.cursos;
 
-import com.hygorluciano.forumalura.domain.cursos.models.*;
+import com.hygorluciano.forumalura.domain.cursos.Curso;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
 

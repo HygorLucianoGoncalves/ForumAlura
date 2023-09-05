@@ -1,21 +1,23 @@
-package com.hygorluciano.forumalura.domain.cursos.models;
+package com.hygorluciano.forumalura.domain.cursos;
 
-import com.hygorluciano.forumalura.domain.cursos.dto.*;
+
+import com.hygorluciano.forumalura.domain.cursos.CursoPostDto;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+@Entity
 @Table(name = "curso")
-@Entity(name = "curso")
 public class Curso {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
     private String nome;
+
     private String categoria;
 
     public Curso(CursoPostDto cursoPostDto) {

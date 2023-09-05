@@ -1,4 +1,4 @@
-package com.hygorluciano.forumalura.domain.usuarios.dto;
+package com.hygorluciano.forumalura.domain.usuarios;
 
 import jakarta.validation.constraints.*;
 
