@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CriacaoDeTopico {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
@@ -22,15 +23,12 @@ public class CriacaoDeTopico {
         var curso = cursoRepository.getReferenceById(dados.curso());
 
         var newTopico = new Topico(
-                null,
                 dados.titulo(),
                 dados.mensagem(),
-                null,
-                null,
                 autor,
-                curso,
-                null
+                curso
         );
+
         topicosRespository.save(newTopico);
         return  new TopicoDetalhamnetoDto(newTopico);
     }

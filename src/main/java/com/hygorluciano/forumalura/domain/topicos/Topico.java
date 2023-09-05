@@ -38,4 +38,10 @@ public class Topico {
     @OneToMany
     private List<Resposta> respostas = new ArrayList<>();
 
+    public Topico(String titulo, String mensagem, Usuario autor, Curso curso) {
+        this.titulo = titulo;
+        this.mensagem = mensagem;
+        this.autor = autor;
+        this.curso = curso;
+    }
 }
