@@ -1,16 +1,16 @@
-package com.hygorluciano.forumalura.domain.topicos;
+package com.hygorluciano.forumalura.domain.topicos.models;
 
-import com.hygorluciano.forumalura.domain.cursos.Curso;
-import com.hygorluciano.forumalura.domain.resposta.Resposta;
-import com.hygorluciano.forumalura.domain.usuarios.Usuario;
+import com.hygorluciano.forumalura.domain.cursos.models.Curso;
+import com.hygorluciano.forumalura.domain.resposta.models.Resposta;
+import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.*;
 import java.util.*;
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "topico")
 public class Topico {
@@ -35,7 +35,11 @@ public class Topico {
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    @OneToMany
+    @OneToMany(
+            mappedBy = "topico",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Resposta> respostas = new ArrayList<>();
 
     public Topico(String titulo, String mensagem, Usuario autor, Curso curso) {

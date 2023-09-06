@@ -1,8 +1,10 @@
 CREATE TABLE resposta (
       id SERIAL PRIMARY KEY,
       mensagem TEXT NOT NULL,
-      topico_id INTEGER REFERENCES topico(id),
       data_criacao TIMESTAMP NOT NULL,
-      autor_id INTEGER REFERENCES usuario(id),
-      solucao BOOLEAN
+      topico_id INT,
+      autor_id INT,
+      solucao BOOLEAN NOT NULL,
+      FOREIGN KEY (topico_id) REFERENCES topico (id),
+      FOREIGN KEY (autor_id) REFERENCES usuario (id)
 );

@@ -1,8 +1,9 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.cursos.Curso;
-import com.hygorluciano.forumalura.domain.cursos.CursoPostDto;
-import com.hygorluciano.forumalura.domain.cursos.CursoRepository;
+import com.hygorluciano.forumalura.domain.cursos.models.Curso;
+import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;
+import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
+import com.hygorluciano.forumalura.domain.cursos.service.CrudCursos;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -14,10 +15,16 @@ public class CursoController {
     
     @Autowired
     private CursoRepository cursoRepository;
+    @Autowired
+    private CrudCursos crudCursos;
     @PostMapping
-    public ResponseEntity postCurso(@RequestBody @Valid CursoPostDto cursoPostDto){
-        var newCurso = new Curso(cursoPostDto);
-        cursoRepository.save(newCurso);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newCurso);
+    public ResponseEntity postCurso(@RequestBody @Valid DadosCriacaoCursoDTO cursoPostDto){
+        return crudCursos.cadastraCursos(cursoPostDto);
     }
+
+    @GetMapping
+    public ResponseEntity cursos(){
+        return crudCursos.listaCurso();
+    }
+
 }

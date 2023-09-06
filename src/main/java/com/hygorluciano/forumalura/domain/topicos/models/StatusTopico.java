@@ -1,4 +1,4 @@
-package com.hygorluciano.forumalura.domain.topicos;
+package com.hygorluciano.forumalura.domain.topicos.models;
 
 public enum StatusTopico {
     NAO_RESPONDIDO,

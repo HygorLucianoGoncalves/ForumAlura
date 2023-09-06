@@ -1,7 +1,7 @@
-package com.hygorluciano.forumalura.domain.usuarios;
+package com.hygorluciano.forumalura.domain.usuarios.models;
 
 
-import com.hygorluciano.forumalura.domain.usuarios.UsuarioPostDto;
+import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,9 +22,9 @@ public class Usuario {
 
     private String senha;
 
-    public Usuario(UsuarioPostDto usuarioPostDto) {
-        this.nome = usuarioPostDto.nome();
-        this.email = usuarioPostDto.email();
-        this.senha = usuarioPostDto.senha();
+    public Usuario(UsuarioPostDto dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.senha = dados.senha();
     }
 }

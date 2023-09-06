@@ -1,11 +1,11 @@
 CREATE TABLE topico (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        titulo VARCHAR(255),
-                        mensagem TEXT,
-                        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        status VARCHAR(255) DEFAULT 'NAO_RESPONDIDO',
+                        id SERIAL PRIMARY KEY,
+                        titulo VARCHAR(255) NOT NULL,
+                        mensagem TEXT NOT NULL,
+                        data_criacao TIMESTAMP NOT NULL,
+                        status VARCHAR(20) NOT NULL,
                         autor_id INT,
                         curso_id INT,
-                        FOREIGN KEY (autor_id) REFERENCES usuario(id),
-                        FOREIGN KEY (curso_id) REFERENCES curso(id)
+                        FOREIGN KEY (autor_id) REFERENCES usuario (id),
+                        FOREIGN KEY (curso_id) REFERENCES curso (id)
 );

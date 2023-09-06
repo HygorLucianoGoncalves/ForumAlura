@@ -1,6 +1,6 @@
-package com.hygorluciano.forumalura.domain.usuarios;
+package com.hygorluciano.forumalura.domain.usuarios.repository;
 
-import com.hygorluciano.forumalura.domain.usuarios.Usuario;
+import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
 

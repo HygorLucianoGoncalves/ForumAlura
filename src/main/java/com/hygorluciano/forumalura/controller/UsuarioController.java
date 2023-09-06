@@ -1,25 +1,39 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.usuarios.Usuario;
-import com.hygorluciano.forumalura.domain.usuarios.UsuarioPostDto;
-import com.hygorluciano.forumalura.domain.usuarios.UsuarioRepository;
+import com.hygorluciano.forumalura.domain.usuarios.dto.AtualizarUsuarioDto;
+import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
+import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
+import com.hygorluciano.forumalura.domain.usuarios.service.CrudUsuarios;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
-    @PostMapping("/register")
-    public ResponseEntity postUsuario(@RequestBody @Valid UsuarioPostDto usuarioPostDto){
-        var newUsuario = new Usuario(usuarioPostDto);
-        System.out.println(newUsuario);
-        usuarioRepository.save(newUsuario);
-        return  ResponseEntity.status(HttpStatus.CREATED).body(newUsuario);
+    @Autowired
+    private CrudUsuarios crudUsuarios;
+
+    @PostMapping("/registra")
+    public ResponseEntity postUsuario(@RequestBody @Valid UsuarioPostDto usuarioPostDto) {
+        return crudUsuarios.criaUsuario(usuarioPostDto);
     }
-    
+
+    @GetMapping
+    public ResponseEntity listaUsuario() {
+        return crudUsuarios.listaUsuarios();
+    }
+
+    @PutMapping("/registra/atualizar")
+    @Transactional
+    public ResponseEntity atualizarUsuario(@RequestBody @Valid AtualizarUsuarioDto dados) {
+        return crudUsuarios.atualizarUsuario(dados);
+    }
+
+
 }

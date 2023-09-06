@@ -1,12 +1,14 @@
-package com.hygorluciano.forumalura.domain.cursos;
+package com.hygorluciano.forumalura.domain.cursos.models;
 
 
-import com.hygorluciano.forumalura.domain.cursos.CursoPostDto;
+import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "curso")
@@ -20,8 +22,8 @@ public class Curso {
 
     private String categoria;
 
-    public Curso(CursoPostDto cursoPostDto) {
-        this.nome = cursoPostDto.nome();
-        this.categoria = cursoPostDto.categoria();
+    public Curso(DadosCriacaoCursoDTO dados) {
+        this.nome = dados.nome();
+        this.categoria = dados.categoria();
     }
 }
