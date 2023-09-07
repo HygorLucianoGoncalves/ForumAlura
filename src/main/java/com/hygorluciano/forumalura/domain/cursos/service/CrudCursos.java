@@ -21,17 +21,23 @@ public class CrudCursos {
     private CursoRepository cursoRepository;
 
     public ResponseEntity cadastraCursos(DadosCriacaoCursoDTO dados) {
+
+        // Cria um novo tópico com os dados fornecidos
         var newCurso = new Curso(dados);
+
+        // Salva o novo tópico no repositório
         cursoRepository.save(newCurso);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     public ResponseEntity listaCurso() {
+        //Faz lista de Todos os cursos
         var cursos = cursoRepository.findAll();
+
         // Converta a lista de cursos em uma lista de registros DadosCursoDTO
         List<DadosCursoDTO> dtos = cursos.stream()
-                .map(curso -> new DadosCursoDTO(curso.getId(), curso.getNome(), curso.getCategoria()))
+                .map(curso -> new DadosCursoDTO(curso.getId(),curso.getNome(), curso.getCategoria()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }

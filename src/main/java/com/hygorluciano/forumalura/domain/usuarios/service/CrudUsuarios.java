@@ -22,13 +22,21 @@ public class CrudUsuarios {
     private UsuarioRepository usuarioRepository;
 
     public ResponseEntity criaUsuario(UsuarioPostDto dados) {
+
+        // Cria um novo tópico com os dados fornecidos
         var newUsuario = new Usuario(dados);
+
+        // Salva o novo tópico no repositório
         usuarioRepository.save(newUsuario);
+
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     public ResponseEntity listaUsuarios() {
+        //Faz lista de Todos os usuarios
         var usuarios = usuarioRepository.findAll();
+
+        // Converta a lista de usuarios em uma lista de registros DadosUsuariosDTO
         List<DadosUsuariosDTO> dtos = usuarios.stream()
                 .map(usuario -> new DadosUsuariosDTO(usuario.getId(), usuario.getNome(), usuario.getEmail()))
                 .toList();
@@ -36,9 +44,12 @@ public class CrudUsuarios {
     }
 
     public ResponseEntity atualizarUsuario(AtualizarUsuarioDto dados) {
-        Optional<Usuario> optionalProduct = usuarioRepository.findById(dados.id());
-        if (optionalProduct.isPresent()) {
-            Usuario usuario = optionalProduct.get();
+        //Pega um usuario pelo o id, e retorna um Optional dele
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(dados.id());
+
+        //Ser optionalUsuario estiver presente ou com valor, atualizar as dados com os dados recebido de dados
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
             usuario.setNome(dados.nome());
             usuario.setEmail(dados.email());
             usuario.setSenha(dados.senha());
