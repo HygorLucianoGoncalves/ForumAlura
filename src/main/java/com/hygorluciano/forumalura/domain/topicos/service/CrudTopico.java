@@ -4,6 +4,7 @@ import com.hygorluciano.forumalura.domain.cursos.models.Curso;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
 import com.hygorluciano.forumalura.domain.resposta.dto.RespostaDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.PesquisaTopicosById;
+import com.hygorluciano.forumalura.domain.topicos.dto.TopicoPutDTO;
 import com.hygorluciano.forumalura.domain.topicos.models.Topico;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDto;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDto;
@@ -11,6 +12,7 @@ import com.hygorluciano.forumalura.domain.topicos.repository.TopicosRespository;
 import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
 import com.hygorluciano.forumalura.infra.exception.ResquestExceptionHandler;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class CrudTopico {
     @Autowired
     private TopicosRespository topicosRespository;
 
-    public ResponseEntity criaTopico(TopicosPostDto dados) {
+    public ResponseEntity<Topico> criaTopico(TopicosPostDto dados) {
         // Obtém as referências para o autor e o curso a partir dos repositórios
         Usuario autor = usuarioRepository.getReferenceById(dados.autor());
         Curso curso = cursoRepository.getReferenceById(dados.curso());
@@ -82,8 +84,19 @@ public class CrudTopico {
             throw new RuntimeException("Tópico não encontrado com o ID fornecido");        }
     }
 
+    public ResponseEntity<Topico> atualizarTopico(TopicoPutDTO topicoPutDTO) {
+        Optional<Topico> topicoId = topicosRespository.findById(topicoPutDTO.id());
 
-    //public ResponseEntity atualizarTopico(){}
+        if(topicoId.isPresent()){
+            Topico topico = topicoId.get();
+            topico.setTitulo(topicoPutDTO.titulo());
+            topico.setMensagem(topicoPutDTO.mensagem());
+            topico.setStatus(topicoPutDTO.statusTopico());
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }else {
+            throw new EntityNotFoundException();
+        }
+    }
 
 
 }
