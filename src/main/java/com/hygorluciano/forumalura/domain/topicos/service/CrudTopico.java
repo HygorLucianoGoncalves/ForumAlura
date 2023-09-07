@@ -44,7 +44,7 @@ public class CrudTopico {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    public ResponseEntity mostraTopico(){
+    public  List<TopicoDetalhamnetoDto> mostraTopico(){
         var topicos= topicosRespository.findAll();
 
         List<TopicoDetalhamnetoDto> dtos = topicos.stream()
@@ -59,7 +59,7 @@ public class CrudTopico {
                         topico.getRespostas()
                 ))
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(dtos);
+        return dtos;
     }
 
     //public ResponseEntity atualizarTopico(){}

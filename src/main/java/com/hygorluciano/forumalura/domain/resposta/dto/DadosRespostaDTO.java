@@ -11,16 +11,5 @@ public record DadosRespostaDTO(
         LocalDateTime dataCriacao,
         String autor,
         Boolean solucao
-
-
 ){
-    public DadosRespostaDTO(Resposta resposta) {
-        this(
-                resposta.getId(),
-                resposta.getMensagem(),
-                resposta.getTopico().getId(),
-                resposta.getDataCriacao(),
-                resposta.getAutor().getId(),
-                resposta.getSolucao());
-    }
 }

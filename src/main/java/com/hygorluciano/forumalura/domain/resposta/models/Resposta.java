@@ -26,14 +26,20 @@ public class Resposta {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topico_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Topico topico;
 
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Usuario autor;
 
     private Boolean solucao = false;
+
+    public Resposta(String mensagem, Topico topico, Usuario autor) {
+        this.mensagem = mensagem;
+        this.topico = topico;
+        this.autor = autor;
+    }
 }

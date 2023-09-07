@@ -1,5 +1,6 @@
 package com.hygorluciano.forumalura.domain.topicos.dto;
 
+import com.hygorluciano.forumalura.domain.resposta.dto.DadosRespostaDTO;
 import com.hygorluciano.forumalura.domain.resposta.models.Resposta;
 import com.hygorluciano.forumalura.domain.topicos.models.Topico;
 import com.hygorluciano.forumalura.domain.topicos.models.StatusTopico;

@@ -1,6 +1,7 @@
 package com.hygorluciano.forumalura.controller;
 
 import com.hygorluciano.forumalura.domain.resposta.models.Resposta;
+import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDto;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDto;
 import com.hygorluciano.forumalura.domain.topicos.models.Topico;
 import com.hygorluciano.forumalura.domain.topicos.repository.TopicosRespository;
@@ -29,7 +30,7 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity mostraTopico() {
+    public List<TopicoDetalhamnetoDto> mostraTopico() {
         return crudTopico.mostraTopico();
     }
 
