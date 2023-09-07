@@ -2,6 +2,8 @@ package com.hygorluciano.forumalura.domain.topicos.service;
 
 import com.hygorluciano.forumalura.domain.cursos.models.Curso;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
+import com.hygorluciano.forumalura.domain.resposta.dto.DadosRespostaDTO;
+import com.hygorluciano.forumalura.domain.resposta.dto.RespostaDTO;
 import com.hygorluciano.forumalura.domain.topicos.models.Topico;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDto;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDto;
@@ -45,20 +47,38 @@ public class CrudTopico {
     }
 
     public  List<TopicoDetalhamnetoDto> mostraTopico(){
-        var topicos= topicosRespository.findAll();
+        var topicos = topicosRespository.findAll();
 
-        List<TopicoDetalhamnetoDto> dtos = topicos.stream()
-                .map(topico -> new TopicoDetalhamnetoDto(
-                        topico.getId(),
-                        topico.getTitulo(),
-                        topico.getMensagem(),
-                        topico.getDataCriacao(),
-                        topico.getStatus(),
-                        topico.getAutor().getNome(),
-                        topico.getCurso().getCategoria(),
-                        topico.getRespostas()
-                ))
+        List<TopicoDetalhamnetoDto> dtos = topicos
+                .stream()
+                .map(topico -> {
+                    // Mapear as respostas da entidade Resposta para RespostaDTO
+                    List<RespostaDTO> respostasDto = topico.getRespostas()
+                            .stream()
+                            .map(resposta -> new RespostaDTO(
+                                    resposta.getMensagem(),
+                                    resposta.getDataCriacao(),
+                                    resposta.getAutor().getNome(), //  o nome do autor
+                                    resposta.getSolucao()
+                            ))
+                            .collect(Collectors.toList());
+
+                    // Mapear o tópico e incluir as respostas mapeadas
+                    return new TopicoDetalhamnetoDto(
+                            topico.getId(),
+                            topico.getTitulo(),
+                            topico.getMensagem(),
+                            topico.getDataCriacao(),
+                            topico.getStatus(),
+                            topico.getAutor().getNome(),
+                            topico.getCurso().getCategoria(),
+                            respostasDto // Inclui os RespostaDTO no DTO do tópico
+                    );
+                })
                 .collect(Collectors.toList());
+
+
+
         return dtos;
     }
 
