@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 public record RespostaDTO(
         String mensagem,
-        LocalDateTime dataCriacao,
         String autor,
+        LocalDateTime dataCriacao,
         Boolean solucao
 ) {
 }

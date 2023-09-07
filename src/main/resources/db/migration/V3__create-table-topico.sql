@@ -1,7 +1,7 @@
 CREATE TABLE topico (
                         id SERIAL PRIMARY KEY,
-                        titulo VARCHAR(255) NOT NULL,
-                        mensagem TEXT NOT NULL,
+                        titulo VARCHAR(255) UNIQUE NOT NULL,
+                        mensagem TEXT UNIQUE NOT NULL,
                         data_criacao TIMESTAMP NOT NULL,
                         status VARCHAR(20) NOT NULL,
                         autor_id INT,

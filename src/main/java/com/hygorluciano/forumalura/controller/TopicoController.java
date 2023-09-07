@@ -1,6 +1,7 @@
 package com.hygorluciano.forumalura.controller;
 
 import com.hygorluciano.forumalura.domain.resposta.models.Resposta;
+import com.hygorluciano.forumalura.domain.topicos.dto.PesquisaTopicosById;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDto;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDto;
 import com.hygorluciano.forumalura.domain.topicos.models.Topico;
@@ -23,15 +24,15 @@ public class TopicoController {
     @Autowired
     private TopicosRespository topicosRespository;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity criaTopico(@RequestBody @Valid TopicosPostDto dados){
         return crudTopico.criaTopico(dados);
 
     }
 
-    @GetMapping
-    public List<TopicoDetalhamnetoDto> mostraTopico() {
-        return crudTopico.mostraTopico();
+    @GetMapping("/{id}")
+    public List<TopicoDetalhamnetoDto> mostraTopico(@PathVariable String id) {
+        return crudTopico.mostraTopicoComRespostas(id);
     }
 
 }
