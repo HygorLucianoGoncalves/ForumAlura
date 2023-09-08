@@ -8,6 +8,6 @@ public record TopicoPutDTO(
         String id,
         String titulo,
         String mensagem,
-        StatusTopico statusTopico
+        StatusTopico status
 ) {
 }

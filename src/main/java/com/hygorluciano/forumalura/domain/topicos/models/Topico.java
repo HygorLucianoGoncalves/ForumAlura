@@ -25,6 +25,7 @@ public class Topico {
 
     private LocalDateTime dataCriacao = LocalDateTime.now();//a data aqui vai ser gerada na hora da criação
 
+    @Enumerated(EnumType.STRING)
     private StatusTopico status = StatusTopico.NAO_RESPONDIDO;
 
     @ManyToOne

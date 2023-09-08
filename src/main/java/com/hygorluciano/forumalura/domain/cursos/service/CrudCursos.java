@@ -4,8 +4,6 @@ import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;
 import com.hygorluciano.forumalura.domain.cursos.dto.DadosCursoDTO;
 import com.hygorluciano.forumalura.domain.cursos.models.Curso;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
-import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDto;
-import com.hygorluciano.forumalura.domain.topicos.models.Topico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

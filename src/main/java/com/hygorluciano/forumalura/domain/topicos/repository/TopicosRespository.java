@@ -8,4 +8,7 @@ import java.util.List;
 
 @Repository
 public interface TopicosRespository extends JpaRepository<Topico,String> {
+    boolean existsByTituloAndMensagem(String titulo, String mensagem);
+
 }
+

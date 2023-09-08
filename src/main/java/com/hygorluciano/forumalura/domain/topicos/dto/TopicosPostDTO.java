@@ -2,7 +2,7 @@ package com.hygorluciano.forumalura.domain.topicos.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record TopicosPostDto(
+public record TopicosPostDTO(
         @NotBlank
         String titulo,
         @NotBlank
