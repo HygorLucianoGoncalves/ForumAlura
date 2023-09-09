@@ -3,7 +3,7 @@ package com.hygorluciano.forumalura.domain.usuarios.service;
 import com.hygorluciano.forumalura.domain.usuarios.dto.AtualizarUsuarioDto;
 import com.hygorluciano.forumalura.domain.usuarios.dto.DadosUsuariosDTO;
 import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
-import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
+import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CrudUsuarios {

@@ -1,6 +1,5 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.cursos.models.Curso;
 import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
 import com.hygorluciano.forumalura.domain.cursos.service.CrudCursos;

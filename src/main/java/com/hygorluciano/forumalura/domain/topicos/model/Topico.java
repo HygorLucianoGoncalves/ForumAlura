@@ -1,8 +1,8 @@
-package com.hygorluciano.forumalura.domain.topicos.models;
+package com.hygorluciano.forumalura.domain.topicos.model;
 
-import com.hygorluciano.forumalura.domain.cursos.models.Curso;
-import com.hygorluciano.forumalura.domain.resposta.models.Resposta;
-import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
+import com.hygorluciano.forumalura.domain.cursos.model.Curso;
+import com.hygorluciano.forumalura.domain.resposta.model.Resposta;
+import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 

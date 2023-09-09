@@ -1,10 +1,10 @@
-package com.hygorluciano.forumalura.domain.resposta.models;
+package com.hygorluciano.forumalura.domain.resposta.model;
 
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.hygorluciano.forumalura.domain.topicos.models.Topico;
-import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
+import com.hygorluciano.forumalura.domain.topicos.model.Topico;
+import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

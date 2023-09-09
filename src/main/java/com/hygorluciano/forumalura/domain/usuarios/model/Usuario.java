@@ -1,4 +1,4 @@
-package com.hygorluciano.forumalura.domain.usuarios.models;
+package com.hygorluciano.forumalura.domain.usuarios.model;
 
 
 import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;

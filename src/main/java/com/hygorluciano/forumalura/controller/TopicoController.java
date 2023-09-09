@@ -4,7 +4,7 @@ import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoPutDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoSemRespostaDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDTO;
-import com.hygorluciano.forumalura.domain.topicos.models.Topico;
+import com.hygorluciano.forumalura.domain.topicos.model.Topico;
 import com.hygorluciano.forumalura.domain.topicos.service.CrudTopico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

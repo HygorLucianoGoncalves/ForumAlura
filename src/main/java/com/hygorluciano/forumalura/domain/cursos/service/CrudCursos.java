@@ -2,7 +2,7 @@ package com.hygorluciano.forumalura.domain.cursos.service;
 
 import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;
 import com.hygorluciano.forumalura.domain.cursos.dto.DadosCursoDTO;
-import com.hygorluciano.forumalura.domain.cursos.models.Curso;
+import com.hygorluciano.forumalura.domain.cursos.model.Curso;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

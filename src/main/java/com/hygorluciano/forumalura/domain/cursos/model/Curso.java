@@ -1,4 +1,4 @@
-package com.hygorluciano.forumalura.domain.cursos.models;
+package com.hygorluciano.forumalura.domain.cursos.model;
 
 
 import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;

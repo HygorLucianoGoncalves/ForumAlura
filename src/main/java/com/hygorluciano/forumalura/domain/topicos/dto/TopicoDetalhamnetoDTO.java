@@ -1,7 +1,7 @@
 package com.hygorluciano.forumalura.domain.topicos.dto;
 
 import com.hygorluciano.forumalura.domain.resposta.dto.RespostaDTO;
-import com.hygorluciano.forumalura.domain.topicos.models.StatusTopico;
+import com.hygorluciano.forumalura.domain.topicos.model.StatusTopico;
 
 import java.time.LocalDateTime;
 import java.util.List;

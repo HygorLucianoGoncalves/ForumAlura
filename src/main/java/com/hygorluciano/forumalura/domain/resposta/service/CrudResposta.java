@@ -2,7 +2,7 @@ package com.hygorluciano.forumalura.domain.resposta.service;
 
 import com.hygorluciano.forumalura.domain.resposta.dto.DadosRespostaDTO;
 import com.hygorluciano.forumalura.domain.resposta.dto.CriacaoDeRespostaDto;
-import com.hygorluciano.forumalura.domain.resposta.models.Resposta;
+import com.hygorluciano.forumalura.domain.resposta.model.Resposta;
 import com.hygorluciano.forumalura.domain.resposta.repository.RespostaRepository;
 import com.hygorluciano.forumalura.domain.topicos.repository.TopicosRespository;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CrudResposta {

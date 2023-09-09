@@ -1,18 +1,17 @@
 package com.hygorluciano.forumalura.domain.topicos.service;
 
-import com.hygorluciano.forumalura.domain.cursos.models.Curso;
+import com.hygorluciano.forumalura.domain.cursos.model.Curso;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
 import com.hygorluciano.forumalura.domain.resposta.dto.RespostaDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoPutDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoSemRespostaDTO;
-import com.hygorluciano.forumalura.domain.topicos.models.Topico;
+import com.hygorluciano.forumalura.domain.topicos.model.Topico;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDTO;
 import com.hygorluciano.forumalura.domain.topicos.repository.TopicosRespository;
-import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
+import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
 import com.hygorluciano.forumalura.infra.exception.IdInvalidException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
