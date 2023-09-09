@@ -11,6 +11,7 @@ import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDTO;
 import com.hygorluciano.forumalura.domain.topicos.repository.TopicosRespository;
 import com.hygorluciano.forumalura.domain.usuarios.models.Usuario;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
+import com.hygorluciano.forumalura.infra.exception.IdInvalidException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -107,7 +108,7 @@ public class CrudTopico {
             return dtos;
         } else {
             // Trate o caso em que o tópico não foi encontrado com base no ID
-            throw new RuntimeException("Tópico não encontrado com o ID fornecido");        }
+            throw new IdInvalidException("ID fornecido não encontrado");        }
     }
 
     public ResponseEntity<Topico> atualizarTopico(TopicoPutDTO topicoPutDTO) {
@@ -126,14 +127,19 @@ public class CrudTopico {
 
             return ResponseEntity.status(HttpStatus.OK).build();
         } else {
-            throw new EntityNotFoundException("Tópico não encontrado com o ID fornecido.");
+            throw new IdInvalidException("ID fornecido não encontrado");
         }
     }
 
 
     public  ResponseEntity<Topico> deleteTopico(String id){
-        topicosRespository.deleteById(id);
-        return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        try {
+            topicosRespository.deleteById(id);
+            return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            throw new IdInvalidException("ID fornecido não encontrado");
+        }
+
     }
 
 }
