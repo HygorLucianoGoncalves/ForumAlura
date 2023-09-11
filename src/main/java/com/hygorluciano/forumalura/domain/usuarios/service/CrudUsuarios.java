@@ -5,6 +5,7 @@ import com.hygorluciano.forumalura.domain.usuarios.dto.DadosUsuariosDTO;
 import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
 import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
+import com.hygorluciano.forumalura.infra.exception.CriacaoInvalidoException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,13 +23,17 @@ public class CrudUsuarios {
 
     public ResponseEntity criaUsuario(UsuarioPostDto dados) {
 
-        // Cria um novo tópico com os dados fornecidos
-        var newUsuario = new Usuario(dados);
+        try {
+            // Cria um novo tópico com os dados fornecidos
+            var newUsuario = new Usuario(dados);
 
-        // Salva o novo tópico no repositório
-        usuarioRepository.save(newUsuario);
+            // Salva o novo tópico no repositório
+            usuarioRepository.save(newUsuario);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            throw new CriacaoInvalidoException("Valores ja existe");
+        }
     }
 
     public ResponseEntity listaUsuarios() {

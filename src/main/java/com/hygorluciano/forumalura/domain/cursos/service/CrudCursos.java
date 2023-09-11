@@ -4,6 +4,7 @@ import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;
 import com.hygorluciano.forumalura.domain.cursos.dto.DadosCursoDTO;
 import com.hygorluciano.forumalura.domain.cursos.model.Curso;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
+import com.hygorluciano.forumalura.infra.exception.CriacaoInvalidoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,19 @@ public class CrudCursos {
 
     public ResponseEntity cadastraCursos(DadosCriacaoCursoDTO dados) {
 
-        // Cria um novo tópico com os dados fornecidos
-        var newCurso = new Curso(dados);
+        try {
+            // Cria um novo tópico com os dados fornecidos
+            var newCurso = new Curso(dados);
 
-        // Salva o novo tópico no repositório
-        cursoRepository.save(newCurso);
+            // Salva o novo tópico no repositório
+            cursoRepository.save(newCurso);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+
+        } catch (Exception e) {
+            throw new CriacaoInvalidoException("Valores ja existe");
+        }
+
     }
 
     public ResponseEntity listaCurso() {

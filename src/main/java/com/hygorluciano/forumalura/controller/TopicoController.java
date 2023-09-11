@@ -22,7 +22,6 @@ public class TopicoController {
     @Autowired
     private CrudTopico crudTopico;
 
-
     @PostMapping
     public ResponseEntity criaTopico(@RequestBody @Valid TopicosPostDTO dados){
         return crudTopico.criaTopico(dados);
