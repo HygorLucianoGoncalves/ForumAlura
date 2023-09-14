@@ -17,19 +17,13 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
     private CrudUsuarios crudUsuarios;
 
-    @PostMapping
-    public ResponseEntity postUsuario(@RequestBody @Valid LoginUsuarioDto dados) {
-       return crudUsuarios.loginUsusario(dados);
-    }
-
     @PostMapping("/registra")
-    public ResponseEntity postUsuario(@RequestBody @Valid UsuarioPostDto usuarioPostDto) {
-        return crudUsuarios.criaUsuario(usuarioPostDto);
-    }
+    public ResponseEntity postUsuario(@RequestBody @Valid UsuarioPostDto usuarioPostDto) {return crudUsuarios.criaUsuario(usuarioPostDto);}
+
+    @PostMapping
+    public ResponseEntity postUsuario(@RequestBody @Valid LoginUsuarioDto dados) {return crudUsuarios.loginUsusario(dados);}
 
     @GetMapping
     public ResponseEntity listaUsuario() {
@@ -38,10 +32,5 @@ public class UsuarioController {
 
     @PutMapping("/registra/atualizar")
     @Transactional
-    public ResponseEntity atualizarUsuario(@RequestBody @Valid AtualizarUsuarioDto dados) {
-        return crudUsuarios.atualizarUsuario(dados);
-    }
-
-
-
+    public ResponseEntity atualizarUsuario(@RequestBody @Valid AtualizarUsuarioDto dados) {return crudUsuarios.atualizarUsuario(dados);}
 }

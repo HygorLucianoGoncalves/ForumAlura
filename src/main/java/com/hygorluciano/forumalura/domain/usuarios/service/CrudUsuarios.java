@@ -1,12 +1,10 @@
 package com.hygorluciano.forumalura.domain.usuarios.service;
 
-import com.hygorluciano.forumalura.domain.usuarios.dto.AtualizarUsuarioDto;
-import com.hygorluciano.forumalura.domain.usuarios.dto.DadosUsuariosDTO;
-import com.hygorluciano.forumalura.domain.usuarios.dto.LoginUsuarioDto;
-import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
+import com.hygorluciano.forumalura.domain.usuarios.dto.*;
 import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
 import com.hygorluciano.forumalura.infra.exception.CriacaoInvalidoException;
+import com.hygorluciano.forumalura.infra.security.TokenService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +28,17 @@ public class CrudUsuarios {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private TokenService tokenService;
 
     public ResponseEntity loginUsusario(LoginUsuarioDto dados) {
 
         var usuarioESenha = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
         var auth = this.authenticationManager.authenticate(usuarioESenha);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginDto(token));
     }
 
     public ResponseEntity criaUsuario(UsuarioPostDto dados) {
