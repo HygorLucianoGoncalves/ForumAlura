@@ -1,5 +1,6 @@
 package com.hygorluciano.forumalura.domain.usuarios.dto;
 
+import com.hygorluciano.forumalura.domain.usuarios.model.UsuarioRole;
 import jakarta.validation.constraints.*;
 
 public record UsuarioPostDto(
@@ -9,7 +10,8 @@ public record UsuarioPostDto(
         @Email
         String email,
         @NotNull
-        String senha
+        String senha,
+        UsuarioRole role
 
 ) {
 }

@@ -2,15 +2,21 @@ package com.hygorluciano.forumalura.domain.usuarios.service;
 
 import com.hygorluciano.forumalura.domain.usuarios.dto.AtualizarUsuarioDto;
 import com.hygorluciano.forumalura.domain.usuarios.dto.DadosUsuariosDTO;
+import com.hygorluciano.forumalura.domain.usuarios.dto.LoginUsuarioDto;
 import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
 import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
 import com.hygorluciano.forumalura.infra.exception.CriacaoInvalidoException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,18 +27,33 @@ public class CrudUsuarios {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
+    public ResponseEntity loginUsusario(LoginUsuarioDto dados) {
+
+        var usuarioESenha = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
+        var auth = this.authenticationManager.authenticate(usuarioESenha);
+
+        return ResponseEntity.ok().build();
+    }
+
     public ResponseEntity criaUsuario(UsuarioPostDto dados) {
 
         try {
+
+            if (this.usuarioRepository.findByEmail(dados.email()) != null) return ResponseEntity.badRequest().build();
+            String senhaEncrypted = new BCryptPasswordEncoder().encode(dados.senha());
             // Cria um novo tópico com os dados fornecidos
-            var newUsuario = new Usuario(dados);
+            var newUsuario = new Usuario(dados.nome(), dados.email(), senhaEncrypted, dados.role());
 
             // Salva o novo tópico no repositório
             usuarioRepository.save(newUsuario);
 
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
-            throw new CriacaoInvalidoException("Valores ja existe");
+            throw new CriacaoInvalidoException();
         }
     }
 

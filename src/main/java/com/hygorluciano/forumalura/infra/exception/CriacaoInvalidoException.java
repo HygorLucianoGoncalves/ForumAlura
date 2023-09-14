@@ -6,6 +6,9 @@ public class CriacaoInvalidoException extends RuntimeException{
         super(message);
     }
 
+    public CriacaoInvalidoException() {
+    }
+
     public CriacaoInvalidoException(String message, Throwable cause) {
         super(message, cause);
     }

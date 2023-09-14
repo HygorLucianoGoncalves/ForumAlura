@@ -9,7 +9,6 @@ public record AtualizarUsuarioDto(
         String nome,
         @Email
         String email,
-
         String senha
 
 ) {

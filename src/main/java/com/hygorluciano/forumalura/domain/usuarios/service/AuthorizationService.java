@@ -1,4 +1,4 @@
-package com.hygorluciano.forumalura.infra.security.service;
+package com.hygorluciano.forumalura.domain.usuarios.service;
 
 import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
