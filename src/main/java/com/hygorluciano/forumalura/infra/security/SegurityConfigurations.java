@@ -21,28 +21,32 @@ public class SegurityConfigurations {
 
     @Autowired
     private SecurityFilter securityFilter;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws  Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/login/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/v3/api-docs/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/curso/**")).hasRole("ADMIN")
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/resposta/**")).hasRole("ADMIN")
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/topicos/**")).hasRole("ADMIN")
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/resposta/**")).hasRole("USER")
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/topicos/**")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
