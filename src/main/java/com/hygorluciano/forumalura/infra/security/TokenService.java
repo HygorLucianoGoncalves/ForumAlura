@@ -17,36 +17,36 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-   public String generateToken(Usuario usuario){
-       try {
-           Algorithm algorithm = Algorithm.HMAC256(secret);
-           String token = JWT.create()
-                   .withIssuer("ForumAlura")
-                   .withSubject(usuario.getEmail())
-                   .withExpiresAt(timeExpiracao())
-                   .sign(algorithm);
-           return token;
-       } catch (JWTCreationException exception){
-           throw new RuntimeException("Erro na hora de gera o  token", exception);
-       }
-   }
+    public String generateToken(Usuario usuario) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            String token = JWT.create()
+                    .withIssuer("ForumAlura")
+                    .withSubject(usuario.getEmail())
+                    .withExpiresAt(timeExpiracao())
+                    .sign(algorithm);
+            return token;
+        } catch (JWTCreationException exception) {
+            throw new RuntimeException("Erro na hora de gera o  token", exception);
+        }
+    }
 
-   public String validarToken(String token){
-       try{
-           Algorithm algorithm = Algorithm.HMAC256(secret);
-           return  JWT.require(algorithm)
-                   .withIssuer("ForumAlura")
-                   .build()
-                   .verify(token)
-                   .getSubject();
-       }catch (JWTCreationException exception){
-           return "";
-       }
-   }
+    public String validarToken(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("ForumAlura")
+                    .build()
+                    .verify(token)
+                    .getSubject();
+        } catch (JWTCreationException exception) {
+            return "";
+        }
+    }
 
 
-   private Instant timeExpiracao(){
-       return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
-   }
+    private Instant timeExpiracao() {
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    }
 
 }

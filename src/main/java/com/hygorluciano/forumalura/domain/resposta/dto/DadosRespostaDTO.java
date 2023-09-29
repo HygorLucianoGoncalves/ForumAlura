@@ -9,5 +9,5 @@ public record DadosRespostaDTO(
         LocalDateTime dataCriacao,
         String autor,
         Boolean solucao
-){
+) {
 }

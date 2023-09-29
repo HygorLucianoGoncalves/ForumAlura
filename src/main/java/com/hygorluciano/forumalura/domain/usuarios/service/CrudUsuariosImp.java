@@ -6,7 +6,6 @@ import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
 import com.hygorluciano.forumalura.infra.exception.CriacaoInvalidoException;
 import com.hygorluciano.forumalura.infra.security.TokenService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,26 +13,31 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CrudUsuarios {
+public class CrudUsuariosImp implements com.hygorluciano.forumalura.domain.usuarios.interfaces.CrudUsuarios {
+
+    private final UsuarioRepository usuarioRepository;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final TokenService tokenService;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    public CrudUsuariosImp(UsuarioRepository usuarioRepository, AuthenticationManager authenticationManager, TokenService tokenService) {
+        this.usuarioRepository = usuarioRepository;
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+    }
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private TokenService tokenService;
-
-    public ResponseEntity loginUsusario(LoginUsuarioDto dados) {
-
+    @Override
+    public ResponseEntity<LoginDto> loginUsusario(LoginUsuarioDto dados) {
         var usuarioESenha = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
+
         var auth = this.authenticationManager.authenticate(usuarioESenha);
 
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
@@ -41,12 +45,13 @@ public class CrudUsuarios {
         return ResponseEntity.ok(new LoginDto(token));
     }
 
-    public ResponseEntity criaUsuario(UsuarioPostDto dados) {
-
+    @Override
+    public ResponseEntity<HttpStatus> criaUsuario(UsuarioPostDto dados) {
         try {
-
             if (this.usuarioRepository.findByEmail(dados.email()) != null) return ResponseEntity.badRequest().build();
+
             String senhaEncrypted = new BCryptPasswordEncoder().encode(dados.senha());
+
             // Cria um novo tópico com os dados fornecidos
             var newUsuario = new Usuario(dados.nome(), dados.email(), senhaEncrypted, dados.role());
 
@@ -59,18 +64,25 @@ public class CrudUsuarios {
         }
     }
 
-    public ResponseEntity listaUsuarios() {
+    @Override
+    public ResponseEntity<List<DadosUsuariosDTO>> listaUsuarios() {
+
         //Faz lista de Todos os usuarios
         var usuarios = usuarioRepository.findAll();
 
         // Converta a lista de usuarios em uma lista de registros DadosUsuariosDTO
         List<DadosUsuariosDTO> dtos = usuarios.stream()
-                .map(usuario -> new DadosUsuariosDTO(usuario.getId(), usuario.getNome(), usuario.getEmail()))
+                .map(usuario -> new DadosUsuariosDTO(
+                        usuario.getId(),
+                        usuario.getNome(),
+                        usuario.getEmail()))
                 .toList();
         return ResponseEntity.ok(dtos);
     }
 
-    public ResponseEntity atualizarUsuario(AtualizarUsuarioDto dados) {
+    @Override
+    public ResponseEntity<HttpStatus> atualizarUsuario(AtualizarUsuarioDto dados) {
+
         //Pega um usuario pelo o id, e retorna um Optional dele
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(dados.id());
 

@@ -1,7 +1,6 @@
 package com.hygorluciano.forumalura.domain.resposta.model;
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hygorluciano.forumalura.domain.topicos.model.Topico;
 import com.hygorluciano.forumalura.domain.usuarios.model.Usuario;
@@ -11,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

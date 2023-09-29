@@ -14,18 +14,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CrudCursos {
+public class CrudCurso implements com.hygorluciano.forumalura.domain.cursos.interfaces.CrudCurso {
+
+    private final CursoRepository cursoRepository;
 
     @Autowired
-    private CursoRepository cursoRepository;
+    public CrudCurso(CursoRepository cursoRepository) {
+        this.cursoRepository = cursoRepository;
+    }
 
-    public ResponseEntity cadastraCursos(DadosCriacaoCursoDTO dados) {
+    @Override
+    public ResponseEntity<HttpStatus> cadastraCursos(DadosCriacaoCursoDTO dados) {
 
         try {
-            // Cria um novo tópico com os dados fornecidos
             var newCurso = new Curso(dados);
 
-            // Salva o novo tópico no repositório
             cursoRepository.save(newCurso);
 
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -36,14 +39,20 @@ public class CrudCursos {
 
     }
 
-    public ResponseEntity listaCurso() {
+    @Override
+    public ResponseEntity<List<DadosCursoDTO>> listaCurso() {
+
         //Faz lista de Todos os cursos
         var cursos = cursoRepository.findAll();
 
         // Converta a lista de cursos em uma lista de registros DadosCursoDTO
         List<DadosCursoDTO> dtos = cursos.stream()
-                .map(curso -> new DadosCursoDTO(curso.getId(),curso.getNome(), curso.getCategoria()))
+                .map(curso -> new DadosCursoDTO(
+                        curso.getId(),
+                        curso.getNome(),
+                        curso.getCategoria()))
                 .collect(Collectors.toList());
+
         return ResponseEntity.ok(dtos);
     }
 }

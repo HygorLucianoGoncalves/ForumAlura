@@ -3,6 +3,7 @@ package com.hygorluciano.forumalura.domain.topicos.service;
 import com.hygorluciano.forumalura.domain.cursos.model.Curso;
 import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
 import com.hygorluciano.forumalura.domain.resposta.dto.RespostaDTO;
+import com.hygorluciano.forumalura.domain.topicos.interfaces.CrudTopico;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoPutDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoSemRespostaDTO;
 import com.hygorluciano.forumalura.domain.topicos.model.Topico;
@@ -26,16 +27,21 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CrudTopico {
+public class CrudTopicoImp implements CrudTopico {
+
+    private final UsuarioRepository usuarioRepository;
+    private final CursoRepository cursoRepository;
+    private final TopicosRespository topicosRespository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
-    private CursoRepository cursoRepository;
-    @Autowired
-    private TopicosRespository topicosRespository;
+    public CrudTopicoImp(UsuarioRepository usuarioRepository, CursoRepository cursoRepository, TopicosRespository topicosRespository) {
+        this.usuarioRepository = usuarioRepository;
+        this.cursoRepository = cursoRepository;
+        this.topicosRespository = topicosRespository;
+    }
 
-    public ResponseEntity<Topico> criaTopico(TopicosPostDTO dados) {
+    @Override
+    public ResponseEntity<HttpStatus> criaTopico(TopicosPostDTO dados) {
 
         // Verifica se já existe um tópico com o mesmo título e mensagem
         boolean topicoExistente = topicosRespository.existsByTituloAndMensagem(dados.titulo(), dados.mensagem());
@@ -63,8 +69,9 @@ public class CrudTopico {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    public ResponseEntity<Page<TopicoSemRespostaDTO>> mostraTopicos(Pageable pageable){
-        pageable = PageRequest.of(0, 10, Sort.by("dataCriacao").ascending());
+    @Override
+    public ResponseEntity<Page<TopicoSemRespostaDTO>> mostraTopicos() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("dataCriacao").ascending());
         var page = topicosRespository.findAll(pageable).map((Topico id) -> new TopicoSemRespostaDTO(
                 id.getTitulo(),
                 id.getMensagem(),
@@ -72,29 +79,32 @@ public class CrudTopico {
                 id.getStatus(),
                 id.getAutor().getNome(),
                 id.getCurso().getNome()
-                ));
+        ));
         return ResponseEntity.ok(page);
 
     }
 
+    @Override
     public List<TopicoDetalhamnetoDTO> mostraTopicoComRespostas(String id) {
         Optional<Topico> topicoOptional = topicosRespository.findById(id);
 
         if (topicoOptional.isPresent()) {
+
             Topico topico = topicoOptional.get();
 
             List<RespostaDTO> respostasDto = topico.getRespostas()
                     .stream()
                     .map(resposta -> new RespostaDTO(
                             resposta.getMensagem(),
-                            resposta.getAutor().getNome(), // o nome do autor
+                            resposta.getAutor().getNome(),
                             resposta.getDataCriacao(),
                             resposta.getSolucao()
                     ))
                     .collect(Collectors.toList());
 
             // Mapeie o tópico e inclua as respostas mapeadas
-            List<TopicoDetalhamnetoDTO> dtos = List.of(new TopicoDetalhamnetoDTO(
+
+            return List.of(new TopicoDetalhamnetoDTO(
                     topico.getTitulo(),
                     topico.getMensagem(),
                     topico.getDataCriacao(),
@@ -103,13 +113,13 @@ public class CrudTopico {
                     topico.getCurso().getCategoria(),
                     respostasDto // Inclui os RespostaDTO no DTO do tópico
             ));
-
-            return dtos;
         } else {
             // Trate o caso em que o tópico não foi encontrado com base no ID
-            throw new IdInvalidoException("ID fornecido não encontrado");        }
+            throw new IdInvalidoException("ID fornecido não encontrado");
+        }
     }
 
+    @Override
     public ResponseEntity<Topico> atualizarTopico(TopicoPutDTO topicoPutDTO) {
         // Obtém o tópico do banco de dados com base no id
         Optional<Topico> optionalTopico = topicosRespository.findById(topicoPutDTO.id());
@@ -130,11 +140,11 @@ public class CrudTopico {
         }
     }
 
-
-    public  ResponseEntity<Topico> deleteTopico(String id){
+    @Override
+    public ResponseEntity<Topico> deleteTopico(String id) {
         try {
             topicosRespository.deleteById(id);
-            return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
             throw new IdInvalidoException("ID fornecido não encontrado");
         }

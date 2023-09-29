@@ -1,36 +1,43 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.usuarios.dto.AtualizarUsuarioDto;
-import com.hygorluciano.forumalura.domain.usuarios.dto.LoginUsuarioDto;
-import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
-import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
-import com.hygorluciano.forumalura.domain.usuarios.service.CrudUsuarios;
+import com.hygorluciano.forumalura.domain.usuarios.dto.*;
+import com.hygorluciano.forumalura.domain.usuarios.interfaces.CrudUsuarios;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/login")
 public class UsuarioController {
+    private final CrudUsuarios crudUsuarios;
 
     @Autowired
-    private CrudUsuarios crudUsuarios;
+    public UsuarioController(CrudUsuarios crudUsuarios) {
+        this.crudUsuarios = crudUsuarios;
+    }
 
     @PostMapping("/registra")
-    public ResponseEntity postUsuario(@RequestBody @Valid UsuarioPostDto usuarioPostDto) {return crudUsuarios.criaUsuario(usuarioPostDto);}
+    public ResponseEntity<HttpStatus> postUsuario(@RequestBody @Valid UsuarioPostDto usuarioPostDto) {
+        return crudUsuarios.criaUsuario(usuarioPostDto);
+    }
 
     @PostMapping
-    public ResponseEntity postUsuario(@RequestBody @Valid LoginUsuarioDto dados) {return crudUsuarios.loginUsusario(dados);}
+    public ResponseEntity<LoginDto> postUsuario(@RequestBody @Valid LoginUsuarioDto dados) {
+        return crudUsuarios.loginUsusario(dados);
+    }
 
     @GetMapping
-    public ResponseEntity listaUsuario() {
+    public ResponseEntity<List<DadosUsuariosDTO>> listaUsuario() {
         return crudUsuarios.listaUsuarios();
     }
 
     @PutMapping("/registra/atualizar")
     @Transactional
-    public ResponseEntity atualizarUsuario(@RequestBody @Valid AtualizarUsuarioDto dados) {return crudUsuarios.atualizarUsuario(dados);}
+    public ResponseEntity<HttpStatus> atualizarUsuario(@RequestBody @Valid AtualizarUsuarioDto dados) {
+        return crudUsuarios.atualizarUsuario(dados);
+    }
 }

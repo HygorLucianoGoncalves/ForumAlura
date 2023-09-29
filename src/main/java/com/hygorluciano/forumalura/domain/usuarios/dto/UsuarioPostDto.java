@@ -11,6 +11,7 @@ public record UsuarioPostDto(
         String email,
         @NotNull
         String senha,
+        @NotNull
         UsuarioRole role
 
 ) {

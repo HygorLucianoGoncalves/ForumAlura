@@ -1,31 +1,34 @@
 package com.hygorluciano.forumalura.controller;
 
+import com.hygorluciano.forumalura.domain.cursos.interfaces.CrudCurso;
 import com.hygorluciano.forumalura.domain.cursos.dto.DadosCriacaoCursoDTO;
-import com.hygorluciano.forumalura.domain.cursos.repository.CursoRepository;
-import com.hygorluciano.forumalura.domain.cursos.service.CrudCursos;
+import com.hygorluciano.forumalura.domain.cursos.dto.DadosCursoDTO;
 import jakarta.validation.*;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/curso")
 public class CursoController {
-    
+    private final CrudCurso crudCurso;
+
     @Autowired
-    private CursoRepository cursoRepository;
-    @Autowired
-    private CrudCursos crudCursos;
+    public CursoController(CrudCurso crudCurso) {
+        this.crudCurso = crudCurso;
+    }
+
     @PostMapping
-    public ResponseEntity postCurso(@RequestBody @Valid DadosCriacaoCursoDTO cursoPostDto){
-        return crudCursos.cadastraCursos(cursoPostDto);
+    public ResponseEntity<HttpStatus> postCurso(@RequestBody @Valid DadosCriacaoCursoDTO cursoPostDto) {
+        return crudCurso.cadastraCursos(cursoPostDto);
     }
 
     @GetMapping
-    public ResponseEntity cursos(){
-        return crudCursos.listaCurso();
+    public ResponseEntity<List<DadosCursoDTO>> cursos() {
+        return crudCurso.listaCurso();
     }
 
 }

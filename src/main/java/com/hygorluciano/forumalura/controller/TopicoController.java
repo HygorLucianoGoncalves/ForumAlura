@@ -1,15 +1,14 @@
 package com.hygorluciano.forumalura.controller;
 
+import com.hygorluciano.forumalura.domain.topicos.interfaces.CrudTopico;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoPutDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicoSemRespostaDTO;
 import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDTO;
 import com.hygorluciano.forumalura.domain.topicos.model.Topico;
-import com.hygorluciano.forumalura.domain.topicos.service.CrudTopico;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,33 +17,34 @@ import java.util.List;
 @RestController
 @RequestMapping("/topicos")
 public class TopicoController {
+    private final CrudTopico CrudTopico;
 
-    @Autowired
-    private CrudTopico crudTopico;
+    public TopicoController(CrudTopico CrudTopico) {
+        this.CrudTopico = CrudTopico;
+    }
 
     @PostMapping
-    public ResponseEntity criaTopico(@RequestBody @Valid TopicosPostDTO dados){
-        return crudTopico.criaTopico(dados);
+    public ResponseEntity<HttpStatus> criaTopico(@RequestBody @Valid TopicosPostDTO dados) {
+        return CrudTopico.criaTopico(dados);
     }
 
     @GetMapping
-    private ResponseEntity<Page<TopicoSemRespostaDTO>> listaTopicos(Pageable pageable){
-        return crudTopico.mostraTopicos(pageable);
+    private ResponseEntity<Page<TopicoSemRespostaDTO>> listaTopicos() {
+        return CrudTopico.mostraTopicos();
     }
 
     @GetMapping("/{id}")
     public List<TopicoDetalhamnetoDTO> mostraTopico(@PathVariable String id) {
-        return crudTopico.mostraTopicoComRespostas(id);
+        return CrudTopico.mostraTopicoComRespostas(id);
     }
 
     @PutMapping()
-    public ResponseEntity<Topico> atualizarTopico(@RequestBody @Valid TopicoPutDTO topicoPutDTO){
-       return crudTopico.atualizarTopico(topicoPutDTO);
+    public ResponseEntity<Topico> atualizarTopico(@RequestBody @Valid TopicoPutDTO topicoPutDTO) {
+        return CrudTopico.atualizarTopico(topicoPutDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Topico> deleteTopico(@PathVariable String id){
-        return crudTopico.deleteTopico(id);
+    public ResponseEntity<Topico> deleteTopico(@PathVariable String id) {
+        return CrudTopico.deleteTopico(id);
     }
-
 }

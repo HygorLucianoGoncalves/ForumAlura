@@ -1,7 +1,6 @@
 package com.hygorluciano.forumalura.domain.usuarios.model;
 
 
-import com.hygorluciano.forumalura.domain.usuarios.dto.UsuarioPostDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,9 +40,9 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == UsuarioRole.ADMIN){
+        if (this.role == UsuarioRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        } else{
+        } else {
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }
     }

@@ -1,6 +1,6 @@
 package com.hygorluciano.forumalura.infra.exception;
 
-public class CriacaoInvalidoException extends RuntimeException{
+public class CriacaoInvalidoException extends RuntimeException {
 
     public CriacaoInvalidoException(String message) {
         super(message);
