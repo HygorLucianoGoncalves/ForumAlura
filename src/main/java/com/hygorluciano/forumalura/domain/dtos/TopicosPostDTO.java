@@ -1,0 +1,16 @@
+package com.hygorluciano.forumalura.domain.dtos;
+
+import jakarta.validation.constraints.NotBlank;
+
+public record TopicosPostDTO(
+        @NotBlank
+        String titulo,
+        @NotBlank
+        String mensagem,
+        @NotBlank
+        String autor,
+        @NotBlank
+        String curso
+
+) {
+}

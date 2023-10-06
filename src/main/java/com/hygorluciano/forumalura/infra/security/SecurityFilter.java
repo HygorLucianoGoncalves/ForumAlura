@@ -1,7 +1,7 @@
 package com.hygorluciano.forumalura.infra.security;
 
 
-import com.hygorluciano.forumalura.domain.usuarios.repository.UsuarioRepository;
+import com.hygorluciano.forumalura.domain.repositorys.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

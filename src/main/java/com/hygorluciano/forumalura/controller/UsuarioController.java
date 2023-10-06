@@ -1,7 +1,7 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.usuarios.dto.*;
-import com.hygorluciano.forumalura.domain.usuarios.interfaces.CrudUsuarios;
+import com.hygorluciano.forumalura.domain.dtos.*;
+import com.hygorluciano.forumalura.domain.interfaces.CrudUsuarios;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -26,18 +26,18 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<LoginDto> postUsuario(@RequestBody @Valid LoginUsuarioDto dados) {
+    public ResponseEntity<UsuarioTokenDto> postUsuario(@RequestBody @Valid UsuarioLoginDto dados) {
         return crudUsuarios.loginUsusario(dados);
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosUsuariosDTO>> listaUsuario() {
+    public ResponseEntity<List<UsuariosDto>> listaUsuario() {
         return crudUsuarios.listaUsuarios();
     }
 
     @PutMapping("/registra/atualizar")
     @Transactional
-    public ResponseEntity<HttpStatus> atualizarUsuario(@RequestBody @Valid AtualizarUsuarioDto dados) {
+    public ResponseEntity<HttpStatus> atualizarUsuario(@RequestBody @Valid UsuarioPutDto dados) {
         return crudUsuarios.atualizarUsuario(dados);
     }
 }

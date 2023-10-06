@@ -1,9 +1,9 @@
 package com.hygorluciano.forumalura.controller;
 
 
-import com.hygorluciano.forumalura.domain.resposta.interfaces.CrudRespostas;
-import com.hygorluciano.forumalura.domain.resposta.dto.CriacaoDeRespostaDto;
-import com.hygorluciano.forumalura.domain.resposta.dto.DadosRespostaDTO;
+import com.hygorluciano.forumalura.domain.interfaces.CrudRespostas;
+import com.hygorluciano.forumalura.domain.dtos.RespostaPostDto;
+import com.hygorluciano.forumalura.domain.dtos.RespostaGetDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +23,12 @@ public class RespostaController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> criaResposta(@RequestBody @Valid CriacaoDeRespostaDto dados) {
+    public ResponseEntity<HttpStatus> criaResposta(@RequestBody @Valid RespostaPostDto dados) {
         return crudResposta.criaResposta(dados);
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosRespostaDTO>> listaResposta() {
+    public ResponseEntity<List<RespostaGetDto>> listaResposta() {
         return crudResposta.listaResposta();
     }
 }
