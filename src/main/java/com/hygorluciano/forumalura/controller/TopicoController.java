@@ -1,11 +1,11 @@
 package com.hygorluciano.forumalura.controller;
 
-import com.hygorluciano.forumalura.domain.topicos.interfaces.CrudTopico;
-import com.hygorluciano.forumalura.domain.topicos.dto.TopicoDetalhamnetoDTO;
-import com.hygorluciano.forumalura.domain.topicos.dto.TopicoPutDTO;
-import com.hygorluciano.forumalura.domain.topicos.dto.TopicoSemRespostaDTO;
-import com.hygorluciano.forumalura.domain.topicos.dto.TopicosPostDTO;
-import com.hygorluciano.forumalura.domain.topicos.model.Topico;
+import com.hygorluciano.forumalura.domain.interfaces.CrudTopico;
+import com.hygorluciano.forumalura.domain.dtos.TopicoDetalhamnetoDTO;
+import com.hygorluciano.forumalura.domain.dtos.TopicoPutDTO;
+import com.hygorluciano.forumalura.domain.dtos.TopicoSemRespostaDTO;
+import com.hygorluciano.forumalura.domain.dtos.TopicosPostDTO;
+import com.hygorluciano.forumalura.domain.model.Topico;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
